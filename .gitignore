@@ -1,0 +1,7 @@
+unity-project/Temp/
+unity-project/Library/
+*.apk
+unity-project/unity-project.sln
+unity-project/unity-project.csproj
+unity-project/unity-project.Plugins.csproj
+unity-project/.vs/
