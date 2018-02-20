@@ -9,9 +9,10 @@ import java.util.Calendar;
 
 public class UNDatePickerDialog extends UnityNativeBase {
 
-    private DatePickerFragment datePickerFragment = null;
-
-    public static class DatePickerFragment extends DialogFragment {
+    /**
+     * Date picker dialog fragment
+     */
+    public static class DatePickerDialogFragment extends DialogFragment {
 
         private DatePickerDialog.OnDateSetListener listener = null;
 
@@ -42,16 +43,18 @@ public class UNDatePickerDialog extends UnityNativeBase {
         }
     }
 
+    private DatePickerDialogFragment dialogFragment = null;
+
     public void close() {
 
-        if (datePickerFragment == null) return;
+        if (dialogFragment == null) return;
 
         getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
-                datePickerFragment.dismiss();
-                datePickerFragment = null;
+                dialogFragment.dismiss();
+                dialogFragment = null;
 
             }
         });
@@ -63,9 +66,9 @@ public class UNDatePickerDialog extends UnityNativeBase {
             @Override
             public void run() {
 
-                datePickerFragment = new DatePickerFragment();
-                datePickerFragment.setDateSetListener(listener);
-                datePickerFragment.show(getCurrentActivity().getFragmentManager(), "date-picker");
+                dialogFragment = new DatePickerDialogFragment();
+                dialogFragment.setDateSetListener(listener);
+                dialogFragment.show(getCurrentActivity().getFragmentManager(), "date-picker");
 
             }
         });
@@ -78,31 +81,33 @@ public class UNDatePickerDialog extends UnityNativeBase {
             @Override
             public void run() {
 
-                datePickerFragment = new DatePickerFragment();
+                dialogFragment = new DatePickerDialogFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("y", year);
                 bundle.putInt("m", month);
                 bundle.putInt("d", day);
-                datePickerFragment.setArguments(bundle);
-                datePickerFragment.setDateSetListener(listener);
-                datePickerFragment.show(getCurrentActivity().getFragmentManager(), "date-picker");
+                dialogFragment.setArguments(bundle);
+                dialogFragment.setDateSetListener(listener);
+                dialogFragment.show(getCurrentActivity().getFragmentManager(), "date-picker");
 
             }
         });
 
     }
 
-    static public void show(int year, int month, int day, DatePickerDialog.OnDateSetListener listener) {
+    static public UNDatePickerDialog show(int year, int month, int day, DatePickerDialog.OnDateSetListener listener) {
 
         UNDatePickerDialog datePickerDialog = new UNDatePickerDialog();
         datePickerDialog.showInternal(year, month, day, listener);
+        return  datePickerDialog;
 
     }
 
-    static public void show(DatePickerDialog.OnDateSetListener listener) {
+    static public UNDatePickerDialog show(DatePickerDialog.OnDateSetListener listener) {
 
         UNDatePickerDialog datePickerDialog = new UNDatePickerDialog();
         datePickerDialog.showInternal(listener);
+        return  datePickerDialog;
 
     }
 

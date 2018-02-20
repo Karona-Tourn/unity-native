@@ -13,7 +13,10 @@ import java.util.Calendar;
  */
 public class UNTimePickerDialog extends UnityNativeBase {
 
-    public static class TimePickerFragment extends DialogFragment {
+    /**
+     * Time picker dialog fragment
+     */
+    public static class TimePickerDialogFragment extends DialogFragment {
 
         private TimePickerDialog.OnTimeSetListener listener = null;
 
@@ -46,20 +49,20 @@ public class UNTimePickerDialog extends UnityNativeBase {
         }
     }
 
-    private TimePickerFragment timePickerFragment = null;
+    private TimePickerDialogFragment dialogFragment = null;
 
     /**
      * Close time picker dialog
      */
     public void close() {
 
-        if (timePickerFragment == null) return;
+        if (dialogFragment == null) return;
 
         getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                timePickerFragment.dismiss();
-                timePickerFragment = null;
+                dialogFragment.dismiss();
+                dialogFragment = null;
             }
         });
 
@@ -76,13 +79,13 @@ public class UNTimePickerDialog extends UnityNativeBase {
         getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                timePickerFragment = new TimePickerFragment();
+                dialogFragment = new TimePickerDialogFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("h", hour);
                 bundle.putInt("m", minute);
-                timePickerFragment.setArguments(bundle);
-                timePickerFragment.setTimeSetListener(listener);
-                timePickerFragment.show(getCurrentActivity().getFragmentManager(), "time-picker");
+                dialogFragment.setArguments(bundle);
+                dialogFragment.setTimeSetListener(listener);
+                dialogFragment.show(getCurrentActivity().getFragmentManager(), "time-picker");
             }
         });
     }
@@ -96,9 +99,9 @@ public class UNTimePickerDialog extends UnityNativeBase {
         getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                timePickerFragment = new TimePickerFragment();
-                timePickerFragment.setTimeSetListener(listener);
-                timePickerFragment.show(getCurrentActivity().getFragmentManager(), "time-picker");
+                dialogFragment = new TimePickerDialogFragment();
+                dialogFragment.setTimeSetListener(listener);
+                dialogFragment.show(getCurrentActivity().getFragmentManager(), "time-picker");
             }
         });
     }
@@ -109,7 +112,7 @@ public class UNTimePickerDialog extends UnityNativeBase {
      * @param hour     predefined hour
      * @param minute   predefined minute
      * @param listener listener as callback when date is set
-     * @return
+     * @return The instance object of this class
      */
     static public UNTimePickerDialog show(int hour, int minute, TimePickerDialog.OnTimeSetListener listener) {
         UNTimePickerDialog dialog = new UNTimePickerDialog();
@@ -121,6 +124,7 @@ public class UNTimePickerDialog extends UnityNativeBase {
      * Show time picker dialog
      *
      * @param listener listener as callback when date is set
+     * @return The instance object of this class
      */
     static public UNTimePickerDialog show(TimePickerDialog.OnTimeSetListener listener) {
         UNTimePickerDialog dialog = new UNTimePickerDialog();

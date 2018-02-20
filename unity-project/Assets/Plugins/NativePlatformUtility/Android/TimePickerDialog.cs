@@ -1,25 +1,24 @@
 ﻿#if !UNITY_EDITOR && UNITY_ANDROID
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TK.NativePlatformUtilities
 {
 	public class TimePickerDialog : TimePickerDialogBase
 	{
-		private class TimeSetCallback : AndroidJavaProxy
+		private class OnTimeSetListener : AndroidJavaProxy
 		{
-			private UnityAction<int, int> _callback = null;
+			private TimeSetEventHandler _handler = null;
 
-			public TimeSetCallback ( UnityAction<int, int> callback ) : base ( "android.app.TimePickerDialog$OnTimeSetListener" )
+			public OnTimeSetListener ( TimeSetEventHandler handler ) : base ( "android.app.TimePickerDialog$OnTimeSetListener" )
 			{
-				_callback = callback;
+				_handler = handler;
 			}
 
 			void onTimeSet ( AndroidJavaObject view, int hourOfDay, int minute )
 			{
-				if ( _callback == null ) return;
+				if ( _handler == null ) return;
 
-				_callback ( hourOfDay, minute );
+				_handler ( hourOfDay, minute );
 			}
 		}
 
@@ -29,8 +28,7 @@ namespace TK.NativePlatformUtilities
 
 		private TimePickerDialog ()
 		{
-			if ( _dialogJavaClass == null )
-				_dialogJavaClass = new AndroidJavaClass ( NativePlatformUtility.GetFullJavaClassName ( "UNTimePickerDialog" ) );
+			if ( _dialogJavaClass == null ) _dialogJavaClass = new AndroidJavaClass ( NativePlatformUtility.GetFullJavaClassName ( "UNTimePickerDialog" ) );
 		}
 
 		public override void Close ()
@@ -42,9 +40,12 @@ namespace TK.NativePlatformUtilities
 
 		public override void Show ()
 		{
-			if ( _dialogJavaClass == null ) return;
+			_dialogJavaObject = _dialogJavaClass.CallStatic<AndroidJavaObject> ( "show", new OnTimeSetListener ( _handler ) );
+		}
 
-			_dialogJavaObject = _dialogJavaClass.CallStatic<AndroidJavaObject> ( "show", new TimeSetCallback ( _callback ) );
+		public override void Show ( int hour, int minute )
+		{
+			_dialogJavaObject = _dialogJavaClass.CallStatic<AndroidJavaObject> ( "show", hour, minute, new OnTimeSetListener ( _handler ) );
 		}
 
 		static public TimePickerDialog Create ()

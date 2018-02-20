@@ -1,17 +1,18 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-
-namespace TK.NativePlatformUtilities
+﻿namespace TK.NativePlatformUtilities
 {
 	public abstract class TimePickerDialogBase : ITimePickerDialog
 	{
-		protected UnityAction<int, int> _callback = null;
+		protected TimeSetEventHandler _handler = null;
 
-		public void SetCallback ( UnityAction<int, int> callback )
+		public void SetTimeSetEventHandler ( TimeSetEventHandler handler )
 		{
-			_callback = callback;
+			_handler = handler;
 		}
 
 		public abstract void Show ();
+
+		public abstract void Show ( int hour, int minute );
+
+		public abstract void Close ();
 	}
 }

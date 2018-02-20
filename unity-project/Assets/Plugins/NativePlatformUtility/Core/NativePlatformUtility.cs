@@ -49,14 +49,55 @@ namespace TK.NativePlatformUtilities
 #endif
 		}
 
-		static public void ShowTimePicker ( UnityAction<int, int> onTimeSet )
+		static public ITimePickerDialog ShowTimePicker ( TimeSetEventHandler handler )
 		{
 #if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS || UNITY_IPHONE)
 			ITimePickerDialog dialog = TimePickerDialog.Create();
-			dialog.SetCallback ( onTimeSet );
+			dialog.SetTimeSetEventHandler ( handler );
 			dialog.Show ();
+			return dialog;
 #else
 			Debug.LogWarning ( "Showing a time picker does not support for platform " + Application.platform );
+			return null;
+#endif
+		}
+
+		static public ITimePickerDialog ShowTimePicker ( int startHour, int startMinute, TimeSetEventHandler handler )
+		{
+#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS || UNITY_IPHONE)
+			ITimePickerDialog dialog = TimePickerDialog.Create();
+			dialog.SetTimeSetEventHandler ( handler );
+			dialog.Show (startHour, startMinute);
+			return dialog;
+#else
+			Debug.LogWarning ( "Showing a time picker does not support for platform " + Application.platform );
+			return null;
+#endif
+		}
+
+		static public IDatePickerDialog ShowDatePicker ( DateSetEventHandler handler )
+		{
+#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS || UNITY_IPHONE)
+			IDatePickerDialog dialog = DatePickerDialog.Create();
+			dialog.SetDateSetEventHandler ( handler );
+			dialog.Show ();
+			return dialog;
+#else
+			Debug.LogWarning ( "Showing a date picker does not support for platform " + Application.platform );
+			return null;
+#endif
+		}
+
+		static public IDatePickerDialog ShowDatePicker ( int startYear, int startMonth, int startDayOfMonth, DateSetEventHandler handler )
+		{
+#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS || UNITY_IPHONE)
+			IDatePickerDialog dialog = DatePickerDialog.Create();
+			dialog.SetDateSetEventHandler ( handler );
+			dialog.Show ( startYear, startMonth, startDayOfMonth );
+			return dialog;
+#else
+			Debug.LogWarning ( "Showing a date picker does not support for platform " + Application.platform );
+			return null;
 #endif
 		}
 

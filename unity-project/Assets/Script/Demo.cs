@@ -59,6 +59,10 @@ public class Demo : MonoBehaviour
 				} );
 				break;
 			case NativeUI.DatePickerDialog:
+				NativePlatformUtility.ShowDatePicker ( ( year, month, dayOfMonth ) =>
+				{
+					NativePlatformUtility.ShowToast ( string.Format ( "{0}/{1}/{2}", year, month, dayOfMonth ) );
+				} );
 				break;
 		}
 	}
