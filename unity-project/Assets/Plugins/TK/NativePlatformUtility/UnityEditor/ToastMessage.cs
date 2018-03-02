@@ -5,7 +5,7 @@ using UnityEditor;
 namespace TK.NativePlatformUtilities
 {
 
-	public class Toast : IToast
+	public class ToastMessage : IToastMessage
 	{
 		/// <summary>
 		/// Show native toast

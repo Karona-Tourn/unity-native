@@ -23,7 +23,7 @@ namespace TK.NativePlatformUtilities
 			}
 		}
 
-		static public AlertDialog Create ()
+		static public IAlertDialog Create ()
 		{
 			return new AlertDialog ();
 		}

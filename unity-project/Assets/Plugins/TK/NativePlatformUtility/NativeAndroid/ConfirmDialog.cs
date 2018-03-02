@@ -47,7 +47,7 @@ namespace TK.NativePlatformUtilities
 			_dialogJavaObject.Call ( "close" );
 		}
 
-		static public ConfirmDialog Create ()
+		static public IConfirmDialog Create ()
 		{
 			return new ConfirmDialog ();
 		}

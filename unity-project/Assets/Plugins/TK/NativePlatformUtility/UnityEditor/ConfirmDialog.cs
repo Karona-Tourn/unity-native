@@ -22,7 +22,7 @@ namespace TK.NativePlatformUtilities
 			throw new System.NotImplementedException ();
 		}
 
-		static public ConfirmDialog Create ()
+		static public IConfirmDialog Create ()
 		{
 			return new ConfirmDialog ();
 		}
