@@ -45,6 +45,16 @@ namespace TK.NativePlatformUtilities
 			return dialog;
 		}
 
+		static public IConfirmDialog ShowConfirm ( string title, string message, string buttonOK, string buttonCancel, string buttonAlt, UnityAction<DialogResult> onClick = null )
+		{
+			IConfirmDialog dialog = ConfirmDialog.Create();
+			dialog.SetTitle ( title );
+			dialog.SetMessage ( message );
+			dialog.SetButtons ( buttonOK, buttonCancel, buttonAlt, onClick );
+			dialog.Show ();
+			return dialog;
+		}
+
 		static public ITimePickerDialog ShowTimePicker ( TimeSetEventHandler handler )
 		{
 			ITimePickerDialog dialog = TimePickerDialog.Create();

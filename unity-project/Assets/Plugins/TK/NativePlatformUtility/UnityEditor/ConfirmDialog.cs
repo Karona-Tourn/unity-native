@@ -10,11 +10,22 @@ namespace TK.NativePlatformUtilities
 
 		public override void Show ()
 		{
-			var dialogResult = EditorUtility.DisplayDialog(_title, _message, _positiveButton, _negativeButton);
+			DialogResult dialogResult = DialogResult.OK;
+
+			if ( HasNeutralButton )
+			{
+				int index = EditorUtility.DisplayDialogComplex ( _title, _message, _positiveButton, _negativeButton, _neutralButton );
+				dialogResult = index == 0 ? DialogResult.OK : index == 1 ? DialogResult.Cancel : DialogResult.Alternate;
+			}
+			else
+			{
+				var yes = EditorUtility.DisplayDialog(_title, _message, _positiveButton, _negativeButton);
+				dialogResult = yes ? DialogResult.OK : DialogResult.Cancel;
+			}
 
 			if ( _onClick == null ) return;
 
-			_onClick ( dialogResult ? DialogResult.OK : DialogResult.Cancel );
+			_onClick ( dialogResult );
 		}
 
 		public override void Close ()

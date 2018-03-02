@@ -7,10 +7,13 @@ namespace TK.NativePlatformUtilities
 	{
 		protected string _title             = "";
 		protected string _message           = "";
-		protected string _positiveButton    = "OK";
-		protected string _negativeButton    = "Cancel";
+		protected string _positiveButton    = "Yes";
+		protected string _negativeButton    = "No";
+		protected string _neutralButton     = "Cancel";
 
 		protected UnityAction<DialogResult> _onClick = null;
+
+		protected bool HasNeutralButton { get { return !string.IsNullOrEmpty ( _neutralButton ); } }
 
 		public void SetButton ( string name, UnityAction onClick )
 		{
@@ -19,8 +22,14 @@ namespace TK.NativePlatformUtilities
 
 		public void SetButtons ( string positiveButton, string negativeButton, UnityAction<DialogResult> onClick )
 		{
+			SetButtons (positiveButton, negativeButton, string.Empty, onClick);
+		}
+
+		public void SetButtons ( string positiveButton, string negativeButton, string neutralButton, UnityAction<DialogResult> onClick )
+		{
 			_positiveButton = positiveButton;
 			_negativeButton = negativeButton;
+			_neutralButton = neutralButton;
 			_onClick = onClick;
 		}
 

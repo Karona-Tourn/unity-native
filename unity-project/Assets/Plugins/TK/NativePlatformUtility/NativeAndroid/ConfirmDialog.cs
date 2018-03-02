@@ -17,7 +17,7 @@ namespace TK.NativePlatformUtilities
 
 			void onClick ( AndroidJavaObject dialog, int which )
 			{
-				if ( _callback != null ) _callback (which == -1 ? DialogResult.OK : which == -2 ? DialogResult.Cancel : DialogResult.Other);
+				if ( _callback != null ) _callback (which == -1 ? DialogResult.OK : which == -2 ? DialogResult.Cancel : DialogResult.Alternate);
 			}
 		}
 
@@ -37,7 +37,14 @@ namespace TK.NativePlatformUtilities
 		{
 			if ( _alertDialogJavaClass == null ) return;
 
-			_dialogJavaObject = _alertDialogJavaClass.CallStatic<AndroidJavaObject> ( "show", _title, _message, _positiveButton, _negativeButton, new ClickCallback ( _onClick ) );
+			if ( HasNeutralButton )
+			{
+				_dialogJavaObject = _alertDialogJavaClass.CallStatic<AndroidJavaObject> ( "show", _title, _message, _positiveButton, _negativeButton, _neutralButton, new ClickCallback ( _onClick ) );
+			}
+			else
+			{
+				_dialogJavaObject = _alertDialogJavaClass.CallStatic<AndroidJavaObject> ( "show", _title, _message, _positiveButton, _negativeButton, new ClickCallback ( _onClick ) );
+			}
 		}
 
 		public override void Close ()

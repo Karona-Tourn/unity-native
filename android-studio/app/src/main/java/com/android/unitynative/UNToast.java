@@ -2,8 +2,6 @@ package com.android.unitynative;
 
 import android.widget.Toast;
 
-import com.android.unitynative.Util.StringUtil;
-
 /**
  * Used to showing a toast message
  */
@@ -34,7 +32,7 @@ public class UNToast extends UnityNativeBase {
      * @param isLongDuration duration of toast lifetime
      */
     static public void show(String message, boolean isLongDuration) {
-        new UNToast().showInternal(StringUtil.returnEmptyIfNull(message), isLongDuration);
+        new UNToast().showInternal(message, isLongDuration);
     }
 
 }

@@ -10,6 +10,7 @@ public class Demo : MonoBehaviour
 		Toast,
 		AlertDialog,
 		ConfirmDialog,
+		ComplexDialog,
 		TimePickerDialog,
 		DatePickerDialog,
 	}
@@ -32,7 +33,7 @@ public class Demo : MonoBehaviour
 
 	public void OnItemClicked(Button item)
 	{
-		switch ((NativeUI)Enum.Parse(typeof(NativeUI), item.name))
+		switch ( (NativeUI)Enum.Parse ( typeof ( NativeUI ), item.name ) )
 		{
 			case NativeUI.Toast:
 				NativePlatformUtility.ShowToast ( "I am Mr.Toast!", true );
@@ -46,10 +47,18 @@ public class Demo : MonoBehaviour
 			case NativeUI.ConfirmDialog:
 				NativePlatformUtility.ShowConfirm ( "Confirm Dialog", "I am an confirm dialog!", "YES", "NO", ( result ) =>
 				{
-					if(result == DialogResult.OK)
+					if ( result == DialogResult.OK )
 						NativePlatformUtility.ShowToast ( "Clicked YES" );
 					else
 						NativePlatformUtility.ShowToast ( "Clicked NO" );
+				} );
+				break;
+			case NativeUI.ComplexDialog:
+				NativePlatformUtility.ShowConfirm ( "Complex Dialog", "I am an complex dialog!", "YES", "NO", "CANCEL", ( result ) =>
+				{
+					if ( result == DialogResult.OK ) NativePlatformUtility.ShowToast ( "Clicked YES" );
+					else if ( result == DialogResult.Cancel ) NativePlatformUtility.ShowToast ( "Clicked NO" );
+					else NativePlatformUtility.ShowToast ( "Clicked CANCEL" );
 				} );
 				break;
 			case NativeUI.TimePickerDialog:

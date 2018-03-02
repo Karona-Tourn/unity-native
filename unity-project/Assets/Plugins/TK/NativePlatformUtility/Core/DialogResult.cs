@@ -4,6 +4,6 @@
 	{
 		OK,
 		Cancel,
-		Other,
+		Alternate,
 	}
 }

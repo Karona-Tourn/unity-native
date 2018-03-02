@@ -2,8 +2,7 @@ package com.android.unitynative;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-
-import com.android.unitynative.Util.StringUtil;
+import android.text.TextUtils;
 
 /**
  * Class for showing confirm dialog
@@ -47,17 +46,18 @@ public class UNConfirmDialog extends UnityNativeBase {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getCurrentActivity());
 
                 // 2. Chain together various setter methods to set the dialog characteristics
-                builder.setMessage(StringUtil.returnEmptyIfNull(message));
+                builder.setMessage(message);
 
-                if (!StringUtil.isNullOrEmpty(title)) {
+                if (!TextUtils.isEmpty(title)) {
                     builder.setTitle(title);
                 }
 
-                builder.setPositiveButton(StringUtil.isNullOrEmpty(positiveButton) ? "YES" : positiveButton, listener);
-                builder.setNegativeButton(StringUtil.isNullOrEmpty(negativeButton) ? "NO" : negativeButton, listener);
+                builder.setPositiveButton(TextUtils.isEmpty(positiveButton) ? "YES" : positiveButton, listener);
+                builder.setNegativeButton(TextUtils.isEmpty(negativeButton) ? "NO" : negativeButton, listener);
 
-                if (!StringUtil.isNullOrEmpty(neutralButton))
+                if (!TextUtils.isEmpty(neutralButton)) {
                     builder.setNeutralButton(neutralButton, listener);
+                }
 
                 // Prevent from showing the dialog again when it is already closed
                 if (isClosed) return;
