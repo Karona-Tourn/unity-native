@@ -50,7 +50,7 @@ namespace TK.NativePlatformUtilities
 			PlayerPrefs.SetInt ( PrefCheckTimes, 1 );
 			PlayerPrefs.SetInt ( PrefNeverRate, 0 );
 			PlayerPrefs.SetInt ( PrefRated, 0 );
-			PlayerPrefs.SetFloat ( PrefFirstDateTimeTicks, -1f );
+			PlayerPrefs.SetFloat ( PrefFirstDateTimeTicks, DateTime.Now.Ticks );
 		}
 
 		public void RateNow ()
@@ -94,7 +94,7 @@ namespace TK.NativePlatformUtilities
 			if ( checkTimes > _maxCheckTimes ) return true;
 			else PlayerPrefs.SetInt ( PrefCheckTimes, checkTimes + 1 );
 
-			long firstDateTimeTicks = (long)PlayerPrefs.GetFloat(PrefFirstDateTimeTicks, -1f);
+			long firstDateTimeTicks = (long)PlayerPrefs.GetFloat(PrefFirstDateTimeTicks, DateTime.Now.Ticks);
 			TimeSpan diffTimeSpan = DateTime.Now.Subtract(new DateTime(firstDateTimeTicks));
 			if ( diffTimeSpan.Days > 1 ) return true;
 
