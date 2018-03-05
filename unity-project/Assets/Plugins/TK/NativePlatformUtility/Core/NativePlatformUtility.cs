@@ -87,5 +87,15 @@ namespace TK.NativePlatformUtilities
 			return dialog;
 		}
 
+		static public IRatingDialog ShowRating ( string title, string message, string packageName = "", bool ifNeeded = true )
+		{
+			IRatingDialog dialog = new RatingDialog(packageName);
+			dialog.SetTitle ( title );
+			dialog.SetMessage ( message );
+			if ( ifNeeded ) dialog.ShowIfNeeded ();
+			else dialog.Show ();
+			return dialog;
+		}
+
 	}
 }

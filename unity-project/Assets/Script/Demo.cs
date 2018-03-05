@@ -13,6 +13,7 @@ public class Demo : MonoBehaviour
 		ComplexDialog,
 		TimePickerDialog,
 		DatePickerDialog,
+		RatingDialog,
 	}
 
 	public Button itemSample = null;
@@ -72,6 +73,9 @@ public class Demo : MonoBehaviour
 				{
 					NativePlatformUtility.ShowToast ( string.Format ( "{0}/{1}/{2}", year, month, dayOfMonth ) );
 				} );
+				break;
+			case NativeUI.RatingDialog:
+				NativePlatformUtility.ShowRating ( "Rate App", "It is funny!", "com.jellybtn.cashkingmobile" );
 				break;
 		}
 	}
