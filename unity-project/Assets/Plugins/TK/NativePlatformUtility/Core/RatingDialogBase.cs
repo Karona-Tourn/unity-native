@@ -45,6 +45,14 @@ namespace TK.NativePlatformUtilities
 			_maxCheckTimes = maxCheckTimes;
 		}
 
+		public void Reset ()
+		{
+			PlayerPrefs.SetInt ( PrefCheckTimes, 1 );
+			PlayerPrefs.SetInt ( PrefNeverRate, 0 );
+			PlayerPrefs.SetInt ( PrefRated, 0 );
+			PlayerPrefs.SetFloat ( PrefFirstDateTimeTicks, -1f );
+		}
+
 		public void RateNow ()
 		{
 			PlayerPrefs.SetInt ( PrefRated, 1 );
