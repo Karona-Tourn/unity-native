@@ -53,6 +53,11 @@ namespace TK.NativePlatformUtilities
 			if ( !appRating.CanRate () ) return;
 			Show ();
 		}
+
+		public override void Reset ()
+		{
+			appRating.Reset ();
+		}
 	}
 
 }

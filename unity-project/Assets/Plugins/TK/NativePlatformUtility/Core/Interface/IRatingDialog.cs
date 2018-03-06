@@ -7,6 +7,7 @@
 		void SetMessage ( string message );
 		void Show ();
 		void ShowIfNeeded ();
+		void Reset ();
 	}
 
 }

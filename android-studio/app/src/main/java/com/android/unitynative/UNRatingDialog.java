@@ -24,9 +24,9 @@ public class UNRatingDialog extends UnityNativeBase {
     private static final String KEY_FIRST_DATE = "first-date";
 
     private SharedPreferences preferences = null;
-    private CharSequence packageName = "";
-    private CharSequence title = "";
-    private CharSequence message = "";
+    private String packageName = "";
+    private String title = "";
+    private String message = "";
     private ConditionTrigger condition = null;
     private int maxTryTimes = 0;
 
@@ -84,11 +84,11 @@ public class UNRatingDialog extends UnityNativeBase {
         return false;
     }
 
-    public void setTitle(CharSequence title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setMessage(CharSequence message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
@@ -111,7 +111,7 @@ public class UNRatingDialog extends UnityNativeBase {
             @Override
             public void run() {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getCurrentActivity().getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getCurrentActivity());
                 builder.setTitle(title);
                 builder.setMessage(message);
                 builder.setPositiveButton("RATE NOW", new DialogInterface.OnClickListener() {
@@ -132,7 +132,8 @@ public class UNRatingDialog extends UnityNativeBase {
                         rateLater();
                     }
                 });
-                builder.show();
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 

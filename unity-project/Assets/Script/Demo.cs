@@ -18,6 +18,7 @@ public class Demo : MonoBehaviour
 
 	public Button itemSample = null;
 	public Transform listContent = null;
+	private bool isFirstRatingStart = true;
 
 	private void Start()
 	{
@@ -32,7 +33,7 @@ public class Demo : MonoBehaviour
 		}
 	}
 
-	public void OnItemClicked(Button item)
+	public void OnItemClicked ( Button item )
 	{
 		switch ( (NativeUI)Enum.Parse ( typeof ( NativeUI ), item.name ) )
 		{
@@ -75,7 +76,12 @@ public class Demo : MonoBehaviour
 				} );
 				break;
 			case NativeUI.RatingDialog:
-				NativePlatformUtility.ShowRating ( "Rate App", "It is funny!", "com.jellybtn.cashkingmobile" );
+				var dialog = NativePlatformUtility.ShowRating ( "Rate App", "It is funny!", "com.jellybtn.cashkingmobile" );
+				if ( isFirstRatingStart )
+				{
+					isFirstRatingStart = false;
+					dialog.Reset ();
+				}
 				break;
 		}
 	}

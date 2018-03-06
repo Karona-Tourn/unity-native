@@ -19,6 +19,11 @@ namespace TK.NativePlatformUtilities
 		{
 			throw new System.NotImplementedException ();
 		}
+
+		public override void Reset ()
+		{
+			throw new System.NotImplementedException ();
+		}
 	}
 
 }

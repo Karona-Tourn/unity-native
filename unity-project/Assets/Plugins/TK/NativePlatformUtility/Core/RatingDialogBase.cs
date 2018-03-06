@@ -141,6 +141,8 @@ namespace TK.NativePlatformUtilities
 		public abstract void Show ();
 
 		public abstract void ShowIfNeeded ();
+
+		public abstract void Reset ();
 	}
 
 }

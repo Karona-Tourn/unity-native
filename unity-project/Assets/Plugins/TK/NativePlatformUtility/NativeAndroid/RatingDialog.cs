@@ -32,6 +32,11 @@ namespace TK.NativePlatformUtilities
 			ratingDialog.Call ( "setMessage", _message );
 			ratingDialog.Call ( "showIfNeeded" );
 		}
+
+		public override void Reset ()
+		{
+			ratingDialog.Call ( "reset" );
+		}
 	}
 
 }
